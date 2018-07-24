@@ -2,29 +2,23 @@
 @{
     ViewData["Title"] = "Details of a short URL";
 }
-
 <br />
 
 <div class="jumbotron">
-
-    <h1>URL Shortener</h1>
-
+    <h1>車車</h1>
     <br />
-
-    <p>You can see below the details of this short URL.</p>
-
+    <p>這台車車已經轉彎了</p>
     <br />
-
     <ul>
         <li>
             <span class="col-md-2">
-                <strong>URL Id:</strong>
+                <strong>Id:</strong>
             </span>
             @Model.Id
         </li>
         <li>
             <span class="col-md-2">
-                <strong>Original URL:</strong>
+                <strong>原本網址:</strong>
             </span>
             <a href="@Model.OriginalUrl">
                 @Model.OriginalUrl
@@ -32,7 +26,7 @@
         </li>
         <li>
             <span class="col-md-2">
-                <strong>Short URL:</strong>
+                <strong>轉換過的網址:</strong>
             </span>
             <a asp-controller="ShortUrls" asp-action="RedirectTo" asp-route-path="@ViewData["Path"]">
                 http://localhost:5000/ShortUrls/RedirectTo/@ViewData["Path"]
