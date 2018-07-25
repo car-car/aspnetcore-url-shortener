@@ -1,21 +1,23 @@
 ﻿@model ShortUrl
 @{
-    ViewData["Title"] = "車輛明細";
+    ViewData["Title"] = "短網址引導";
 }
 <br />
 
 <div class="jumbotron">
-    <h1>車輛明細</h1>
+    <h1>短網址引導</h1>
     <br />
-    <p>以下是車輛明細，按下按鈕後會導到車輛資訊。</p>
+    <p>點選後即可進入原本網址</p>
     <br />
-    <ul>
-        <!--在這裡產生按鈕-->
-        <li>
-            <span class="col-md-2">
-                <strong>原始連結:</strong>
-            </span>
-            <a asp-controller="ShortUrls" asp-action="RedirectTo" asp-route-path="@ViewData["Path"]" title="點選我進入連結"/>
-        </li>
-    </ul>
+    <form>
+        <div class="form-group">
+            <label>原始連結:</label>
+            <label>@Model.OriginalUrl</label>
+        </div>
+        <div class="form-group">
+            <!--在這裡產生按鈕-->
+            <strong>點選後進入連結:</strong>
+            <a asp-controller="ShortUrls" asp-action="RedirectTo" asp-route-path="@ViewData["Path"]" class="btn btn-primary" type="button">點選我進入連結</a>
+        </div>
+    </form>
 </div>

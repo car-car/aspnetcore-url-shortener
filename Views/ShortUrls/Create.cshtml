@@ -1,26 +1,29 @@
 ﻿@model ShortUrl
 @{
-    ViewData["Title"] = "車況系統回報";
+    ViewData["Title"] = "短網址轉址服務";
 }
 
 <br />
 
 <div class="jumbotron">
-    <h1>車況系統回報</h1>
+    <h1>短網址轉址服務</h1>
     <br />
-    <p>感謝大家回報車況系統，本網站會蒐集回報的車況地址，利用大數據和和人工智慧以提供大家更好的行車體驗</p>
-    <p>提交車輛回報資料後，會有網址方便分享和日後預覽</p>
+    <p>請把網址貼在下面，可以產生短網址，方便在社群軟體上面分享</p>
     <br />
     <form asp-action="Create">
-        <div class="form-horizontal">
-            <div class="input-group input-group-lg">
-                <input asp-for="OriginalUrl" class="form-control" placeholder="請貼上車輛目前所在地址" />
-                <input asp-for="Provider" class="form-control" placeholder="車況回報者" />
-                <textarea asp-for="Memo" class="form-control" placeholder="車況附註"></textarea>
-                <span class="input-group-btn">
-                    <button class="btn btn-primary" type="submit">提交</button>
-                </span>
-            </div>
+        <div class="form-group">
+            <label>請輸入網址</label>
+            <input asp-for="OriginalUrl" class="form-control" placeholder="網址" />
+            <small id="emailHelp" class="form-text text-muted">請填選完整網址</small>
         </div>
+        <div class="form-group">
+            <label>請輸入暱稱(選填)</label>
+            <input asp-for="Provider" class="form-control" placeholder="提供者(選填)" />
+        </div>
+        <div class="form-group">
+            <label>請輸入備註(選填)</label>
+            <textarea asp-for="Memo" class="form-control" placeholder="說明"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">提交</button>
     </form>
 </div>

@@ -82,14 +82,14 @@ namespace UrlShortener.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IActionResult Perview(int? id)
+        public IActionResult Perview(int? path)
         { 
-            if (!id.HasValue) 
+            if (!path.HasValue) 
             {
                 return NotFound();
             }
 
-            var shortUrl = _service.GetById(id.Value);
+            var shortUrl = _service.GetById(path.Value);
             if (shortUrl == null) 
             {
                 return NotFound();
