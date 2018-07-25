@@ -9,6 +9,14 @@ namespace UrlShortener.Models
         [Required]
         public string OriginalUrl { get; set; }
 
+        public string MetaTitle { get; set; }
+
+        public string MetaDescription { get; set; }
+
+        public string PreviewImageUrl { get; set; }
+
         public string Provider { get; set; }
+
+        public string Memo { get; set; }
     }
 }

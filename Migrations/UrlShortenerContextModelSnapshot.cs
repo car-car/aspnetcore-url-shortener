@@ -19,11 +19,21 @@ namespace UrlShortener.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
+                    //原始網址
                     b.Property<string>("OriginalUrl");
-
+                    //網址內容的Title
+                    b.Property<string>("MetaTitle");
+                    //網址內容的Description
+                    b.Property<string>("MetaDescription");
+                    //預覽圖片
+                    b.Property<string>("PreviewImageUrl");
+                    //提供者
+                    b.Property<string>("Provider");
+                    //說明
+                    b.Property<string>("Memo");
+                    //Key
                     b.HasKey("Id");
-
+                    //Table
                     b.ToTable("ShortUrls");
                 });
         }

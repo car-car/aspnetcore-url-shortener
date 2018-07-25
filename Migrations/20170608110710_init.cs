@@ -14,7 +14,12 @@ namespace UrlShortener.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    OriginalUrl = table.Column<string>(nullable: true)
+                    OriginalUrl = table.Column<string>(nullable: true),
+                    MetaTitle = table.Column<string>(nullable: true),
+                    MetaDescription = table.Column<string>(nullable: true),
+                    PreviewImageUrl = table.Column<string>(nullable: true),
+                    Provider = table.Column<string>(nullable: true),
+                    Memo = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
