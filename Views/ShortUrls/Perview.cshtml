@@ -1,0 +1,21 @@
+﻿@model ShortUrl
+@{
+    ViewData["Title"] = "車輛明細";
+}
+<br />
+
+<div class="jumbotron">
+    <h1>車輛明細</h1>
+    <br />
+    <p>以下是車輛明細，按下按鈕後會導到車輛資訊。</p>
+    <br />
+    <ul>
+        <!--在這裡產生按鈕-->
+        <li>
+            <span class="col-md-2">
+                <strong>原始連結:</strong>
+            </span>
+            <a asp-controller="ShortUrls" asp-action="RedirectTo" asp-route-path="@ViewData["Path"]" title="點選我進入連結"/>
+        </li>
+    </ul>
+</div>
