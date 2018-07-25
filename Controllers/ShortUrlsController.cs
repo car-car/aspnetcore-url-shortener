@@ -48,7 +48,7 @@ namespace UrlShortener.Controllers
             {
                 _service.Save(shortUrl);
 
-                return RedirectToAction(actionName: nameof(Show), routeValues: new { id = shortUrl.Id });
+                return RedirectToAction(actionName: nameof(CreateSuccess), routeValues: new { id = shortUrl.Id });
             }
 
             return View(shortUrl);
@@ -59,7 +59,7 @@ namespace UrlShortener.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IActionResult Show(int? id)
+        public IActionResult CreateSuccess(int? id)
         {
             if (!id.HasValue) 
             {
