@@ -17,7 +17,7 @@
         <div class="form-group">
             <!--在這裡產生按鈕-->
             <strong>點選後進入連結:</strong>
-            <a asp-controller="ShortUrls" asp-action="RedirectTo" asp-route-path="@ViewData["Path"]" class="btn btn-primary" type="button">點選我進入連結</a>
+            <a asp-controller="ShortUrls" asp-action="RedirectTo" asp-route-path="@Model.Id" class="btn btn-primary" type="button">點選我進入連結</a>
         </div>
     </form>
 </div>

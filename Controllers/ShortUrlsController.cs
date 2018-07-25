@@ -94,8 +94,6 @@ namespace UrlShortener.Controllers
             {
                 return NotFound();
             }
-
-            ViewData["Path"] = ShortUrlHelper.Encode(shortUrl.Id);
             return View(shortUrl);
         }
 
@@ -105,14 +103,13 @@ namespace UrlShortener.Controllers
         /// <param name="path"></param>
         /// <returns></returns>
         [HttpGet("/ShortUrls/RedirectTo/{path:required}", Name = "ShortUrls_RedirectTo")]
-        public IActionResult RedirectTo(string path)
+        public IActionResult RedirectTo(int path)
         {
-            if (path == null) 
+            if (path == 0) 
             {
                 return NotFound();
             }
-
-            var shortUrl = _service.GetByPath(path);
+            var shortUrl = _service.GetById(path);
             if (shortUrl == null) 
             {
                 return NotFound();
