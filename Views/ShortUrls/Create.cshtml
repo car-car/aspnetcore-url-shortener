@@ -1,21 +1,24 @@
 ﻿@model ShortUrl
 @{
-    ViewData["Title"] = "Create a new short URL";
+    ViewData["Title"] = "車況系統回報";
 }
 
 <br />
 
 <div class="jumbotron">
-    <h1>車車</h1>
+    <h1>車況系統回報</h1>
     <br />
-    <p>在這邊發想發的車車</p>
+    <p>感謝大家回報車況系統，本網站會蒐集回報的車況地址，利用大數據和和人工智慧以提供大家更好的行車體驗</p>
+    <p>提交車輛回報資料後，會有網址方便分享和日後預覽</p>
     <br />
     <form asp-action="Create">
         <div class="form-horizontal">
             <div class="input-group input-group-lg">
-                <input asp-for="OriginalUrl" class="form-control" placeholder="Paste the URL to be shorten..." />
+                <input asp-for="OriginalUrl" class="form-control" placeholder="請貼上車輛目前所在地址" />
+                <input asp-for="Provider" class="form-control" placeholder="車況回報者" />
+                <textarea asp-for="Memo" class="form-control" placeholder="車況附註"></textarea>
                 <span class="input-group-btn">
-                    <button class="btn btn-primary" type="submit">Shorten URL</button>
+                    <button class="btn btn-primary" type="submit">提交</button>
                 </span>
             </div>
         </div>

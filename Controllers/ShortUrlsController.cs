@@ -29,6 +29,11 @@ namespace UrlShortener.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 產生新的網址並存到資料庫
+        /// </summary>
+        /// <param name="originalUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(string originalUrl)
@@ -49,6 +54,11 @@ namespace UrlShortener.Controllers
             return View(shortUrl);
         }
 
+        /// <summary>
+        /// 顯示結果
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult Show(int? id)
         {
             if (!id.HasValue) 
@@ -67,6 +77,33 @@ namespace UrlShortener.Controllers
             return View(shortUrl);
         }
 
+        /// <summary>
+        /// 收到連結後打開的第一個頁面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IActionResult Perview(int? id)
+        { 
+            if (!id.HasValue) 
+            {
+                return NotFound();
+            }
+
+            var shortUrl = _service.GetById(id.Value);
+            if (shortUrl == null) 
+            {
+                return NotFound();
+            }
+
+            ViewData["Path"] = ShortUrlHelper.Encode(shortUrl.Id);
+            return View(shortUrl);
+        }
+
+        /// <summary>
+        /// 點開裡面的按鈕
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         [HttpGet("/ShortUrls/RedirectTo/{path:required}", Name = "ShortUrls_RedirectTo")]
         public IActionResult RedirectTo(string path)
         {

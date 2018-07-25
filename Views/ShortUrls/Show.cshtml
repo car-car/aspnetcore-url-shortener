@@ -1,13 +1,14 @@
 ﻿@model ShortUrl
 @{
-    ViewData["Title"] = "Details of a short URL";
+    ViewData["Title"] = "車況回報成功";
 }
 <br />
 
 <div class="jumbotron">
-    <h1>車車</h1>
+    <h1>車況回報成功</h1>
     <br />
-    <p>這台車車已經轉彎了</p>
+    <p>感謝大家回報車況系統，以下是收集到的車況資訊。</p>
+    <p>如果想要分享給親朋好友，請複製下方的"分享地址"</p>
     <br />
     <ul>
         <li>
@@ -18,7 +19,7 @@
         </li>
         <li>
             <span class="col-md-2">
-                <strong>原本網址:</strong>
+                <strong>車輛目前所在地址:</strong>
             </span>
             <a href="@Model.OriginalUrl">
                 @Model.OriginalUrl
@@ -26,7 +27,7 @@
         </li>
         <li>
             <span class="col-md-2">
-                <strong>轉換過的網址:</strong>
+                <strong>分享地址:</strong>
             </span>
             <a asp-controller="ShortUrls" asp-action="RedirectTo" asp-route-path="@ViewData["Path"]">
                 http://localhost:5000/ShortUrls/RedirectTo/@ViewData["Path"]
