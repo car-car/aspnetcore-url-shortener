@@ -1,13 +1,18 @@
-# ASP.NET Core MVC URL Shortener
-A basic implementation of an URL shortener web application using ASP.NET Core MVC and Entity Framework Core.
+# 短網址服務(URL Shortener)
 
-## Goal
+簡單來說，這個專案是用asp.net core 實作短網址服務.
 
-I've started this little project in order to have a support during my approach of ASP.NET Core MVC.
+Basically, this project use asp.net core to implement url shorener service
 
-My idea was to implement a simple web application using the framework.
+## 特點(Feature)
 
-I've chosen to implement an URL shortener application because it's pretty simple.
+1. 可以在windows, mac, linex上運行，方便部屬
+
+   use asp.net core so it can run on windows, mac, linux, and azure.
+   
+2. 有做過一點處理，所以發什麼車都不會翻掉
+
+   can share some "url" that cannot be block on facebook
 
 ## Algorithm
 
