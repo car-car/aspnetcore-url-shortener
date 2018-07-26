@@ -14,6 +14,20 @@
             <label>原始連結:</label>
             <label>@Model.OriginalUrl</label>
         </div>
+        @if (!string.IsNullOrEmpty(@Model.Provider))
+        {
+            <div class="form-group">
+                <label>暱稱:</label>
+                <label>@Model.Provider</label>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(@Model.Memo))
+        {
+            <div class="form-group">
+                <label>備註:</label>
+                <label>@Model.Memo</label>
+            </div>
+        }
         <div class="form-group">
             <!--在這裡產生按鈕-->
             <strong>點選後進入連結:</strong>

@@ -36,11 +36,13 @@ namespace UrlShortener.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(string originalUrl)
+        public IActionResult Create(string originalUrl,string provider,string memo)
         {
             var shortUrl = new ShortUrl
             {
-                OriginalUrl = originalUrl
+                OriginalUrl = originalUrl,
+                Provider = provider,
+                Memo = memo,
             };
 
             TryValidateModel(shortUrl);
