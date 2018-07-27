@@ -24,15 +24,27 @@ namespace UrlShortener.Controllers
             return RedirectToAction(actionName: nameof(Create));
         }
 
-        public IActionResult Create()
+        /// <summary>
+        /// Show create page
+        /// </summary>
+        /// <param name="isPublic"></param>
+        /// <returns></returns>
+        public IActionResult Create(bool isPublic = true)
         {
-            return View();
+            var model = new ShortUrl()
+            {
+                IsPrivate = !isPublic
+            };
+
+            return View(model);
         }
 
         /// <summary>
-        /// Create page
+        /// Create page submit
         /// </summary>
         /// <param name="originalUrl"></param>
+        /// <param name="provider"></param>
+        /// <param name="memo"></param>
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -50,7 +62,7 @@ namespace UrlShortener.Controllers
             {
                 _service.Save(shortUrl);
 
-                return RedirectToAction(actionName: nameof(CreateSuccess), routeValues: new { id = shortUrl.Id });
+                return RedirectToAction(actionName: nameof(CreateSuccess), routeValues: new { path = shortUrl.Path });
             }
 
             return View(shortUrl);
@@ -59,31 +71,22 @@ namespace UrlShortener.Controllers
         /// <summary>
         /// Create Success page
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="path"></param>
         /// <returns></returns>
-        public IActionResult CreateSuccess(int? id)
+        public IActionResult CreateSuccess(string path)
         {
-            if (!id.HasValue) 
-            {
-                return NotFound();
-            }
-
-            var shortUrl = _service.GetById(id.Value);
+            var shortUrl = _service.GetByPath(path);
             if (shortUrl == null) 
             {
                 return NotFound();
             }
-
-            //Create Path
-            ViewData["Path"] = ShortUrlHelper.Encode(shortUrl.Id);
-
             return View(shortUrl);
         }
 
         /// <summary>
         /// If user get the preview URL, goes to this page first
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="path"></param>
         /// <returns></returns>
         [HttpGet("/p/{path:required}", Name = "ShortUrls_Preview")]
         public IActionResult Perview(string path)
@@ -100,7 +103,7 @@ namespace UrlShortener.Controllers
         /// Old preview page
         /// TODO : will be removed
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="path"></param>
         /// <returns></returns>
         public IActionResult Perview(int? path)
         { 

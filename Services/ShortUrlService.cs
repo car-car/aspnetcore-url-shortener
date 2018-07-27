@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using UrlShortener.Data;
 using UrlShortener.Helpers;
 using UrlShortener.Models;
@@ -20,7 +22,7 @@ namespace UrlShortener.Services
 
         public ShortUrl GetByPath(string path)
         {
-            return _context.ShortUrls.Find(ShortUrlHelper.Decode((path)));
+            return _context.ShortUrls.FirstOrDefault(x=>x.Path == path);
         }
 
         public ShortUrl GetByOriginalUrl(string originalUrl)
@@ -36,7 +38,14 @@ namespace UrlShortener.Services
 
         public int Save(ShortUrl shortUrl)
         {
+            //insert
+            shortUrl.CreateDate = DateTime.UtcNow;
             _context.ShortUrls.Add(shortUrl);
+            _context.SaveChanges();
+
+            //update path
+            shortUrl.Path = ShortUrlHelper.Encode(shortUrl.Id);
+            _context.ShortUrls.Update(shortUrl);
             _context.SaveChanges();
 
             return shortUrl.Id;

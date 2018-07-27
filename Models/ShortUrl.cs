@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace UrlShortener.Models
@@ -18,5 +19,11 @@ namespace UrlShortener.Models
         public string Provider { get; set; }
 
         public string Memo { get; set; }
+
+        public string Path { get; set; }
+
+        public bool IsPrivate { get; set; }
+
+        public DateTime CreateDate { get; set; }
     }
 }
