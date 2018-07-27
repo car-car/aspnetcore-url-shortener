@@ -3,7 +3,26 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - URL Shortener</title>
+
+    @if (ViewData["Title"] != null)
+    {
+        <meta name="og:title" content="@ViewData["Title"]" />
+        <meta itemprop="name" content="@ViewData["Title"]" />
+    }
+
+    @if (ViewData["Image"] != null)
+    {
+        <meta name="og:image" content="@ViewData["Image"]" />
+        <meta itemprop="image" content="@ViewData["Image"]" />
+    }
+    @if (ViewData["Description"] != null)
+    {
+        <meta name="og:description" content="@ViewData["Description"]" />
+        <meta itemprop="description" content="@ViewData["Description"]" />
+    }
+
+    <title>@ViewData["Title"]</title>
+
 
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />

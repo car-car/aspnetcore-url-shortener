@@ -12,12 +12,17 @@ namespace UrlShortener.Controllers
 {
     public class ShortUrlsController : Controller
     {
-        private readonly IShortUrlService _service;
+        private readonly IShortUrlService _shortUrlService;
+        private readonly IUrlPerviewService _urlPerviewService;
 
-        public ShortUrlsController(IShortUrlService service)
+        public ShortUrlsController(IShortUrlService service,
+            IUrlPerviewService urlPerviewService)
         {
-            _service = service;
+            _shortUrlService = service;
+            _urlPerviewService = urlPerviewService;
         }
+
+        #region ShortUrl
 
         public IActionResult Index()
         {
@@ -49,20 +54,33 @@ namespace UrlShortener.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(string originalUrl,string provider,string memo,bool isPrivate)
+        public IActionResult Create(string originalUrl, string provider, string memo, bool isPrivate)
         {
+            var urlPerview = new UrlPerview();
+            try
+            {
+                urlPerview = _urlPerviewService.GetUrlPerview(originalUrl);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
             var shortUrl = new ShortUrl
             {
                 OriginalUrl = originalUrl,
                 Provider = provider,
                 Memo = memo,
-                IsPrivate = isPrivate
+                IsPrivate = isPrivate,
+                MetaTitle = urlPerview?.Title,
+                MetaDescription = urlPerview?.Description,
+                PreviewImageUrl = urlPerview?.ListImages?.FirstOrDefault()
             };
 
             TryValidateModel(shortUrl);
             if (ModelState.IsValid)
             {
-                _service.Save(shortUrl);
+                _shortUrlService.Save(shortUrl);
 
                 return RedirectToAction(actionName: nameof(CreateSuccess), routeValues: new { path = shortUrl.Path });
             }
@@ -77,8 +95,8 @@ namespace UrlShortener.Controllers
         /// <returns></returns>
         public IActionResult CreateSuccess(string path)
         {
-            var shortUrl = _service.GetByPath(path);
-            if (shortUrl == null) 
+            var shortUrl = _shortUrlService.GetByPath(path);
+            if (shortUrl == null)
             {
                 return NotFound();
             }
@@ -92,9 +110,9 @@ namespace UrlShortener.Controllers
         /// <returns></returns>
         [HttpGet("/p/{path:required}", Name = "ShortUrls_Preview")]
         public IActionResult Perview(string path)
-        { 
-            var shortUrl = _service.GetByPath(path);
-            if (shortUrl == null) 
+        {
+            var shortUrl = _shortUrlService.GetByPath(path);
+            if (shortUrl == null)
             {
                 return NotFound();
             }
@@ -108,14 +126,14 @@ namespace UrlShortener.Controllers
         /// <param name="path"></param>
         /// <returns></returns>
         public IActionResult Perview(int? path)
-        { 
-            if (!path.HasValue) 
+        {
+            if (!path.HasValue)
             {
                 return NotFound();
             }
 
-            var shortUrl = _service.GetById(path.Value);
-            if (shortUrl == null) 
+            var shortUrl = _shortUrlService.GetById(path.Value);
+            if (shortUrl == null)
             {
                 return NotFound();
             }
@@ -130,17 +148,32 @@ namespace UrlShortener.Controllers
         [HttpGet("/ShortUrls/RedirectTo/{path:required}", Name = "ShortUrls_RedirectTo")]
         public IActionResult RedirectTo(int path)
         {
-            if (path == 0) 
+            if (path == 0)
             {
                 return NotFound();
             }
-            var shortUrl = _service.GetById(path);
-            if (shortUrl == null) 
+            var shortUrl = _shortUrlService.GetById(path);
+            if (shortUrl == null)
             {
                 return NotFound();
             }
 
             return Redirect(shortUrl.OriginalUrl);
         }
+
+        #endregion
+
+
+
+        #region Url
+
+        [HttpGet]
+        public IActionResult GenerateUrlPerview(string url)
+        {
+            var result = _urlPerviewService.GetUrlPerview(url);
+            return Json(result);
+        }
+
+        #endregion
     }
 }

@@ -1,8 +1,9 @@
 ﻿@model ShortUrl
 @{
-    ViewData["Title"] = "短網址引導";
+    ViewData["Title"] = "[短網址引導] " + @Model.MetaTitle;
+    ViewData["Description"] = @Model.MetaDescription;
 }
-<br />
+<br/>
 
 <div class="jumbotron">
     <h1>短網址引導</h1>

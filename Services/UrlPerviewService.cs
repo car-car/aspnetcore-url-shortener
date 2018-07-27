@@ -18,7 +18,8 @@ namespace UrlShortener.Services
 
             foreach (var item in images.ToList())
             {
-                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(item);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(item);
+                request.Timeout = 3000;
                 request.Method = "HEAD";
 
                 request.UseDefaultCredentials = true;
@@ -110,19 +111,18 @@ namespace UrlShortener.Services
             {
                 if (!String.IsNullOrEmpty(item))
                 {
-                    HttpWebRequest request = HttpWebRequest.Create(item) as HttpWebRequest;
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(item);
                     request.Timeout = 3000;
                     try
                     {
                         response = request.GetResponse() as HttpWebResponse;
-                        response.Close();
                         if (response.StatusCode.ToString().ToLower() == "ok")
                         {
                             imgUrl = item;
-
+                            response.Close();
                             break;
                         }
-
+                        response.Close();
                     }
                     catch (WebException e)
                     {
@@ -140,6 +140,7 @@ namespace UrlShortener.Services
         {
             string strResult;
             HttpWebRequest objRequest = (HttpWebRequest)WebRequest.Create(strURL);
+            objRequest.Timeout = 3000;
             objRequest.UserAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.121 Safari/535.2";
             WebResponse objResponse = objRequest.GetResponse();
             using (var sr = new StreamReader(objResponse.GetResponseStream()))
@@ -344,6 +345,9 @@ namespace UrlShortener.Services
         /// <returns></returns>
         public UrlPerview GetUrlPerview(string url)
         {
+            if (string.IsNullOrEmpty(url))
+                return new UrlPerview();
+
             UrlPerview scrap = new UrlPerview();
 
             string[] imgs = new string[100];
@@ -416,5 +420,4 @@ namespace UrlShortener.Services
         public string Desc { get; set; }
 
     }
-}
 }
