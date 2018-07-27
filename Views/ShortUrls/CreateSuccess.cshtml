@@ -1,8 +1,9 @@
 ﻿@model ShortUrl
 @{
     ViewData["Title"] = "產生成功";
-
+    
     var host = Context.Request.Host;
+    var shareUrl = Url.ActionContext.HttpContext.Request.Scheme + "/" +  ViewData["Path"];
 }
 <br />
 
@@ -46,7 +47,7 @@
             <div class="col-sm-10">
                 <span class="input-group-btn">
                     <input asp-for="OriginalUrl" class="form-control" type="text" placeholder="分享地址"
-                           value="@Url.Action("Perview", "ShortUrls", new {path = Model.Id}, Url.ActionContext.HttpContext.Request.Scheme)" id="copyInput" />
+                           value="@shareUrl" id="copyInput" />
                     <button class="btn btn-primary" type="button" onclick="myFunction()">複製</button>
                     <script>
                         function myFunction() {

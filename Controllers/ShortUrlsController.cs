@@ -30,7 +30,7 @@ namespace UrlShortener.Controllers
         }
 
         /// <summary>
-        /// 產生新的網址並存到資料庫
+        /// Create page
         /// </summary>
         /// <param name="originalUrl"></param>
         /// <returns></returns>
@@ -57,7 +57,7 @@ namespace UrlShortener.Controllers
         }
 
         /// <summary>
-        /// 顯示結果
+        /// Create Success page
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -74,13 +74,31 @@ namespace UrlShortener.Controllers
                 return NotFound();
             }
 
+            //Create Path
             ViewData["Path"] = ShortUrlHelper.Encode(shortUrl.Id);
 
             return View(shortUrl);
         }
 
         /// <summary>
-        /// 收到連結後打開的第一個頁面
+        /// If user get the preview URL, goes to this page first
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("/p/{path:required}", Name = "ShortUrls_Preview")]
+        public IActionResult Perview(string path)
+        { 
+            var shortUrl = _service.GetByPath(path);
+            if (shortUrl == null) 
+            {
+                return NotFound();
+            }
+            return View(shortUrl);
+        }
+
+        /// <summary>
+        /// Old preview page
+        /// TODO : will be removed
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -100,7 +118,7 @@ namespace UrlShortener.Controllers
         }
 
         /// <summary>
-        /// 點開裡面的按鈕
+        /// Redirect to 
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
