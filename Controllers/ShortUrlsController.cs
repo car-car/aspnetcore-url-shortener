@@ -45,16 +45,18 @@ namespace UrlShortener.Controllers
         /// <param name="originalUrl"></param>
         /// <param name="provider"></param>
         /// <param name="memo"></param>
+        /// <param name="isPrivate"></param>
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(string originalUrl,string provider,string memo)
+        public IActionResult Create(string originalUrl,string provider,string memo,bool isPrivate)
         {
             var shortUrl = new ShortUrl
             {
                 OriginalUrl = originalUrl,
                 Provider = provider,
                 Memo = memo,
+                IsPrivate = isPrivate
             };
 
             TryValidateModel(shortUrl);
