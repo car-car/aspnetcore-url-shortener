@@ -44,6 +44,7 @@ namespace UrlShortener
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<UrlShortenerContext>(options => options.UseSqlite("filename=shorturls.db"));
             services.AddScoped<IShortUrlService, ShortUrlService>();
+            services.AddScoped<IUrlPerviewService, UrlPerviewService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
