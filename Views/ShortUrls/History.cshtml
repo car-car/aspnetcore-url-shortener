@@ -1,7 +1,5 @@
 ﻿@{
     ViewData["Title"] = "歷史列表";
-
-    var shareUrl = Url.Action("Perview", "ShortUrls", Url.ActionContext.HttpContext.Request.Scheme);
 }
 
 @section Scripts
@@ -49,8 +47,8 @@
             $('#btnSearch').click(function () { return _this.search(); });
         }
         siteViewModel.prototype.edit = function (e) {
-            //var url = @shareUrl + e.data.Path;
-            //window.open(url);
+            var url = '/p/' + e.data.record.Path;
+            window.open(url);
         };
         siteViewModel.prototype.search = function () {
             this.grid.reload({ searchString: $('#search').val() });
