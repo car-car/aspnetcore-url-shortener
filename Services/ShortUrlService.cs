@@ -40,6 +40,8 @@ namespace UrlShortener.Services
                 searchList = searchList.Where(x => x.IsPrivate == false);
             }
 
+            searchList = searchList.OrderByDescending(x => x.Id);
+
             return searchList;
         }
 

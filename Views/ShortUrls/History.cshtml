@@ -48,7 +48,7 @@
         }
         siteViewModel.prototype.edit = function (e) {
             var url = '/p/' + e.data.record.Path;
-            window.open(url);
+            window.open(url, "_self");
         };
         siteViewModel.prototype.search = function () {
             this.grid.reload({ searchString: $('#search').val() });
