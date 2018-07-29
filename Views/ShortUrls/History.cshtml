@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "歷史列表";
+}
+<div class="jumbotron">
+    <h1>歷史列表</h1>
+    <br />
+    <p>從這裡去查詢歷史列表</p>
+    <br />
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <input type="text" id="search" class="form-control" placeholder="Search for...">
+                <button type="button" id="btnSearch" class="btn btn-default">Go!</button>
+            </div>
+        </div>
+    </div>
+    <br />
+    <table id="grid" data-source="@Url.Action("GetHistoryRecords")"></table>
+</div>

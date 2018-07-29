@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UrlShortener.Data;
 using UrlShortener.Helpers;
@@ -13,6 +14,28 @@ namespace UrlShortener.Services
         public ShortUrlService(UrlShortenerContext context)
         {
             _context = context;
+        }
+
+        public IQueryable<ShortUrl> GetShortUrls(string metaTittle = null,string provider = null,string memo = null)
+        {
+            var searchList = _context.ShortUrls.AsQueryable();
+
+            if (metaTittle != null)
+            {
+                searchList = searchList.Where(x => x.MetaTitle.Contains(metaTittle));
+            }
+
+            if (provider != null)
+            {
+                searchList = searchList.Where(x => x.Provider.Contains(provider));
+            }
+
+            if (memo != null)
+            {
+                searchList = searchList.Where(x => x.Memo.Contains(memo));
+            }
+
+            return searchList;
         }
 
         public ShortUrl GetById(int id)

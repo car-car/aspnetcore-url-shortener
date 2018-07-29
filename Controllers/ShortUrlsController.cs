@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using UrlShortener.Helpers;
 using UrlShortener.Models;
 using UrlShortener.Services;
@@ -24,9 +26,22 @@ namespace UrlShortener.Controllers
 
         #region ShortUrl
 
+        /// <summary>
+        /// Redirect to Create
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             return RedirectToAction(actionName: nameof(Create));
+        }
+
+        /// <summary>
+        /// Show History
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult History()
+        {
+            return View();
         }
 
         /// <summary>
@@ -163,15 +178,42 @@ namespace UrlShortener.Controllers
 
         #endregion
 
-
-
-        #region Url
+        #region Json
 
         [HttpGet]
         public IActionResult GenerateUrlPerview(string url)
         {
             var result = _urlPerviewService.GetUrlPerview(url);
             return Json(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
+        /// <param name="searchString"></param>
+        /// <returns></returns>
+        public JsonResult GetHistoryRecords(int? page, int? limit, string searchString = null)
+        {
+            if (page.HasValue && limit.HasValue)
+            {
+                //query all match
+                var records = _shortUrlService.GetShortUrls( provider: searchString);
+                int total = records.Count();
+
+                //paging
+                int start = (page.Value - 1) * limit.Value;
+                records = records.Skip(start).Take(limit.Value);
+
+                //return list
+                return Json(new { records, total }, new JsonSerializerSettings
+                {
+                    ContractResolver = new DefaultContractResolver { NamingStrategy = null }
+                });
+            }
+
+            return Json(null);
         }
 
         #endregion

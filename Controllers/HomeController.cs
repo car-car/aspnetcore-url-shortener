@@ -13,6 +13,11 @@ namespace UrlShortener.Controllers
             return RedirectToAction(controllerName: "ShortUrls", actionName: "Index");
         }
 
+        public IActionResult History()
+        {
+            return RedirectToAction(controllerName: "ShortUrls", actionName: "History");
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
