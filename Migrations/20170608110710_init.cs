@@ -20,6 +20,9 @@ namespace UrlShortener.Migrations
                     PreviewImageUrl = table.Column<string>(nullable: true),
                     Provider = table.Column<string>(nullable: true),
                     Memo = table.Column<string>(nullable: true),
+                    Path = table.Column<string>(nullable: true),
+                    IsPrivate = table.Column<bool>(nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false),
                 },
                 constraints: table =>
                 {

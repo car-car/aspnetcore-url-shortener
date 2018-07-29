@@ -31,6 +31,12 @@ namespace UrlShortener.Migrations
                     b.Property<string>("Provider");
                     //說明
                     b.Property<string>("Memo");
+                    //雜湊
+                    b.Property<string>("Path");
+                    //是否隱私
+                    b.Property<bool>("IsPrivate");
+                    //產生日期
+                    b.Property<DateTime>("CreateDate");
                     //Key
                     b.HasKey("Id");
                     //Table

@@ -22,6 +22,14 @@ namespace UrlShortener.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("OriginalUrl");
+                    b.Property<string>("MetaTitle");
+                    b.Property<string>("MetaDescription");
+                    b.Property<string>("PreviewImageUrl");
+                    b.Property<string>("Provider");
+                    b.Property<string>("Memo");
+                    b.Property<string>("Path");
+                    b.Property<bool>("IsPrivate");
+                    b.Property<DateTime>("CreateDate");
 
                     b.HasKey("Id");
 

@@ -11,19 +11,60 @@
     <p>請把網址貼在下面，可以產生短網址，方便在社群軟體上面分享</p>
     <br />
     <form asp-action="Create">
+        <!--輸入網址-->
         <div class="form-group">
             <label>請輸入網址</label>
-            <input asp-for="OriginalUrl" class="form-control" placeholder="網址" required="required"/>
+            <input asp-for="OriginalUrl" class="form-control" placeholder="https://example.com" required="required" onKeyUp="return showUrlPreview()" pattern="https://.*"/>
             <small id="emailHelp" class="form-text text-muted">請填選完整網址</small>
         </div>
+        <!--暱稱-->
         <div class="form-group">
             <label>請輸入暱稱(選填)</label>
             <input asp-for="Provider" class="form-control" placeholder="提供者(選填)" />
         </div>
+        <!--備註-->
         <div class="form-group">
             <label>請輸入備註(選填)</label>
             <textarea asp-for="Memo" class="form-control" placeholder="說明"></textarea>
         </div>
+        <!--是否為隱私連結-->
+        <div class="form-check">
+            <input asp-for="IsPrivate" class="form-check-input" type="checkbox">
+            <label class="form-text">隱私連結</label>
+        </div>
+        <!--送出-->
         <button class="btn btn-primary" type="submit">提交</button>
+
+        <!--網址預覽-->
+        <div class="col-md-9">
+            <!--Perview-->
+            <div class="panel-body">
+                <h3 id="title"></h3>
+                <div id="imgdiv"></div>
+                <p class="lead" id="desc"></p>
+                <p class="lead" id="url"></p>
+            </div>
+        </div>
     </form>
 </div>
+
+<script type="text/javascript">
+    function showUrlPreview() {
+        $.ajax({
+            type: 'Get',
+            url: '@Url.Action("GenerateUrlPerview")',
+            data: { url: $('#OriginalUrl').val() },
+            success: function (data) {
+                $("#title").text(data.Title);
+                $("#desc").text(data.Description);
+                $("#url").text(data.Url);
+                $("#imgdiv").html('');
+                $.each(data.ListImages,
+                    function(e, element) {
+                        $("#imgdiv").append("<img src='" + element + "' style='height:100px;width:100px'/>");
+                    });
+            }
+        });
+    }
+</script>
+

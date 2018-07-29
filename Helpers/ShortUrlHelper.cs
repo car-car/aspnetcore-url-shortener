@@ -29,6 +29,11 @@ namespace UrlShortener.Helpers
         private const string Alphabet = "23456789bcdfghjkmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ-_";
         private static readonly int Base = Alphabet.Length;
 
+        /// <summary>
+        /// change number to hash value
+        /// </summary>
+        /// <returns>The encode.</returns>
+        /// <param name="num">Number.</param>
         public static string Encode(int num)
         {
             var sb = new StringBuilder();
@@ -40,6 +45,11 @@ namespace UrlShortener.Helpers
             return sb.ToString();
         }
 
+        /// <summary>
+        /// change hash value to int
+        /// </summary>
+        /// <returns>The decode.</returns>
+        /// <param name="str">String.</param>
         public static int Decode(string str)
         {
             var num = 0;
