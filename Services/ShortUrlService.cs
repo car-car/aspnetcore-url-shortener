@@ -16,9 +16,14 @@ namespace UrlShortener.Services
             _context = context;
         }
 
-        public IQueryable<ShortUrl> GetShortUrls(string metaTittle = null,string provider = null,string memo = null, bool showPublicOnly = true)
+        public IQueryable<ShortUrl> GetShortUrls(string url = null, string metaTittle = null,string provider = null,string memo = null, bool showPublicOnly = true)
         {
             var searchList = _context.ShortUrls.AsQueryable();
+
+            if (url != null)
+            {
+                searchList = searchList.Where(x => x.OriginalUrl.Contains(url));
+            }
 
             if (metaTittle != null)
             {

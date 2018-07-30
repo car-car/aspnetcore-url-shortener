@@ -195,7 +195,7 @@ namespace UrlShortener.Controllers
             if (page.HasValue && limit.HasValue)
             {
                 //query all match
-                var records = _shortUrlService.GetShortUrls( provider: searchString);
+                var records = _shortUrlService.GetShortUrls(url: searchString);
                 int total = records.Count();
 
                 //paging
