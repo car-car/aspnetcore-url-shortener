@@ -126,7 +126,7 @@ namespace UrlShortener.Services
                     }
                     catch (WebException e)
                     {
-                        throw e;
+                        //throw e;
                     }
 
                 }
