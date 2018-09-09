@@ -1,3 +1,6 @@
-﻿@using UrlShortener
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using UrlShortener
 @using UrlShortener.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject IViewLocalizer Localizer

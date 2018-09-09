@@ -8,6 +8,7 @@ using UrlShortener.Services;
 
 namespace UrlShortener.Controllers
 {
+    [MiddlewareFilter(typeof(CultureMiddleware))]
     public class ShortUrlsController : Controller
     {
         private readonly IShortUrlService _shortUrlService;
