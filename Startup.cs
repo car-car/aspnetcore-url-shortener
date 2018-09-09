@@ -39,9 +39,14 @@ namespace UrlShortener
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //add multi-language support
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             // Add framework services.
             services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                    .AddViewLocalization()
+                    .AddDataAnnotationsLocalization()
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<UrlShortenerContext>(options => options.UseSqlite("filename=shorturls.db"));
             services.AddScoped<IShortUrlService, ShortUrlService>();
             services.AddScoped<IUrlPerviewService, UrlPerviewService>();
@@ -63,6 +68,15 @@ namespace UrlShortener
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            //add culture info, default language is chinese
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{culture=en-GB}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
