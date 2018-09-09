@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using UrlShortener.Models;
 using UrlShortener.Services;
+using UrlShortener.Middlewares;
 
 namespace UrlShortener.Controllers
 {

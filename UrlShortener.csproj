@@ -11,4 +11,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Localization.Routing" Version="2.1.1" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Views\Home\About.en-GB.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\About.zh-TW.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
